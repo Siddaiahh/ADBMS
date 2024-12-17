@@ -1,0 +1,30 @@
+# Implementation of C4.5 on the iris dataset.
+#Install Java and set JAVA_HOME path before installing Rweka package
+
+#C4.5 algorithm is an extension of the ID3 algorithm and constructs a decision tree to 
+#maximize information gain (difference in entropy).
+
+
+#install the package RWeka
+install.packages(“RWeka”)
+#load the package
+library(RWeka)
+#loading data and splitting it into training and testing data
+data_train <- iris[1:105,]
+data_test <- iris[106:150,]
+
+
+#fit model
+fit <- J48(Species~., data_train)
+#summarize the model
+summary(fit)
+#make predictions
+predictions <- predict(fit, data_test)
+
+#confusion matrix
+cm = table(predictions,iris[106:150,5])
+cm
+
+
+accuracy = sum(diag(cm))/length(iris[106:150,5])
+accuracy

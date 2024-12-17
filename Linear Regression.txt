@@ -1,0 +1,37 @@
+# Simple Linear Regression
+rm(list = ls()) # Free up memory
+gc() # Garbage Collection
+
+# dataset
+# Model building
+# Prediction  -- predict weight for a given height
+
+# The predictor vector.
+x <- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)  # Height
+
+# The response vector.
+y <- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)  # Weight
+
+plot(x, y, col = "blue", main = "X-Y plot for Regression",pch=8,
+     xlab = "Height", ylab = "Weight")
+
+# Apply the lm() function.
+
+reg <- lm(y~x)
+
+# to get summary of the relationship
+
+print(summary(reg))
+
+# Plot the chart.
+plot(x,y,col = "blue",main = "Height & Weight Regression",
+    pch = 10,xlab = "Height in Kg",ylab = "Weight in cm")
+
+abline(reg,col="red")
+
+# Find weight of a person with height 170.--- PREDICTION
+
+height <- data.frame(x = 165)
+predicted_weight <- predict(reg, newdata = height)
+
+print(predicted_weight)

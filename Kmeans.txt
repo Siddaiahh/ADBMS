@@ -1,0 +1,26 @@
+#Kmeans clustering
+
+rm(list = ls()) # Free up memory
+gc() # Garbage Collection
+
+install.packages("fpc")
+install.packages("cluster")
+library(cluster)
+library(fpc)  # Flexible Procedures for Clustering
+
+
+data(iris)
+View(iris)
+
+summary(iris)
+data1 <- iris[, -5] # Remove the class variable
+View(data1)
+head(data1)
+plot(data1)
+
+# K-means clustering
+set.seed(789)
+clust <- kmeans(data1, centers=3,iter.max = 10)
+clust
+#Plotting the Clusters
+plotcluster(data1, clust$cluster)

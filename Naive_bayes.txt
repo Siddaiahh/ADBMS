@@ -1,0 +1,42 @@
+# Loading data  ( you can skip this )
+data(iris)
+iris
+# Structure
+str(iris)
+
+# Installing Packages
+install.packages("e1071")
+install.packages("caTools")
+
+# Loading package
+library(e1071)
+library(caTools)  #for sample.split function
+
+# Splitting data into train and test data
+split <- sample.split(iris, SplitRatio = 0.8)
+train_data <- subset(iris, split == "TRUE")
+test_data <- subset(iris, split == "FALSE")
+
+#Another way to split the data into train and test data 
+#train_cl=iris[1:100,]
+#test_cl=iris[101:150,]
+
+nrow(iris)
+nrow(train_data)
+nrow(test_data)
+
+set.seed(120) # Setting Seed
+#creating the model
+classifier_model <- naiveBayes(Species ~ ., data = train_data)
+classifier_model
+
+# Predicting on test data
+y_pred <- predict(classifier_model, newdata = test_data)
+y_pred
+# Confusion Matrix
+cm <- table(test_data$Species, y_pred)
+cm
+
+#Accuracy calculation
+accuracy = sum(diag(cm))/length(test_data$Species)
+accuracy
